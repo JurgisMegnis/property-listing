@@ -1,0 +1,24 @@
+@import '../../../styles.scss';
+
+.header {
+    background-image: url('../../../../public/hero-image.jpg');
+    height: 620px;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    padding: 180px 140px 0 140px;
+
+    .intro-text {
+        color: $dark;
+        width: 50%;
+
+        h1 {
+            @include h1;
+            
+            margin-bottom: 8px;
+        }
+
+        p {
+            @include h2-regular;
+        }
+    }
+}
