@@ -1,4 +1,3 @@
-@import 'reset.scss';
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 @mixin h1 {
@@ -60,20 +59,4 @@
     font-family: 'Outfit', sans-serif;
     font-size: 1.25rem;
     font-weight: 700;
-}
-
-$light: #F2F9FE;
-$dark: #121826;
-$grey-400: #20293A;
-$grey-300: #20293AF2;
-$grey-200: #4A5567;
-$grey-100: #7E869E40;
-$yellow: #F6C768;
-$blue: #4E80EE;
-
-body {
-    background-color: $dark;
-    /* background-image: url('../public/hero-image.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% auto; */
 }
