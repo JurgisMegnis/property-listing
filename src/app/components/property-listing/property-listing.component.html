@@ -1,0 +1,27 @@
+<section class="property-item">
+    @if (propertyListing.superhost) {
+        <div class="superhost">Superhost ⭐️</div>
+    }
+    <img [src]="propertyListing.image" alt="Image for {{propertyListing.title}}" class="photo">
+    <div class="main-info">
+        <h3 class="title">{{propertyListing.title}}</h3>
+        <p class="description">{{propertyListing.description}}</p>
+        <div class="details">
+            <div class="bedrooms">
+                <img src="Home_duotone.svg" alt="" class="home-icon">
+                <p class="bedroom-numb">{{propertyListing.capacity.bedroom}} bedroom</p>
+            </div>
+            <div class="guests">
+                <img src="User_alt_duotone.svg" alt="" class="guest-icon">
+                <p class="guest-numb">{{propertyListing.capacity.people}} guests</p>
+            </div>
+        </div>
+        <div class="price-rating">
+            <p class="price">€{{propertyListing.price}}<span>/night</span></p>
+            <div class="rating">
+                <img src="Starfill.svg" alt="" class="rating-star-icon">
+                <p class="rating-text">{{propertyListing.rating}}</p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,12 +1,6 @@
 @import '../../../styles/styles.scss';
 
 .header {
-    /* background-image: url('../../../../public/hero-image.jpg');
-    height: 620px;
-    aspect-ratio: 16 / 9;
-    background-repeat: no-repeat;
-    background-size: 100% auto; */
-    /* padding: 180px 140px 0 140px; */
     position: relative;
 
     .hero-image {
@@ -20,7 +14,7 @@
         top: 14.5vw;
         left: 11vw;
         color: $dark;
-        width: 50%;
+        width: 40%;
 
         h1 {
             @include h1;
@@ -47,5 +41,20 @@
                 font-size: 2.5rem;
             }
         }
+    }
+}
+
+.properties {
+    .title {
+        @include h2-bold;
+        color: $light;
+        margin-bottom: 2rem;
+    }
+
+    .property-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 32px;
+        row-gap: 72px;  
     }
 }
