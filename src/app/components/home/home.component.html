@@ -7,13 +7,16 @@
     
 </section>
 <section class="filters">
+    <div class="location">
+        <app-segment-control *ngFor="let locationItem of locationList; let first = first" [locationItem]="locationItem" [isFirst]="first" (selectionChange)="filterByLocation($event)"></app-segment-control>
+    </div>
 
 </section>
 <section class="properties">
     <h2 class="title">Over 200 stays</h2>
     @if (propertyList && propertyList.length > 0) {
         <div class="property-grid">
-            <app-property-listing *ngFor="let propertyItem of propertyList" [propertyListing]="propertyItem"></app-property-listing>
+            <app-property-listing *ngFor="let propertyItem of filteredPropertyList" [propertyListing]="propertyItem"></app-property-listing>
         </div>
     } @else {
         <p>Loading..</p>
