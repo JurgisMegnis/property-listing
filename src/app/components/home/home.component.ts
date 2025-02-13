@@ -19,8 +19,8 @@ export class HomeComponent implements OnInit {
     this.loadPropertyItems();
   }
 
-  loadPropertyItems() {
-    this.propertyList = this.propertyService.getAllProperties()
+  async loadPropertyItems() {
+    this.propertyList = await this.propertyService.getAllProperties()
   }
 
 }
