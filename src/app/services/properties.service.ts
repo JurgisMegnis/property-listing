@@ -5,13 +5,13 @@ import { PropertyListing } from '../property-listing';
   providedIn: 'root'
 })
 export class PropertiesService {
-  url = 'https://raw.githubusercontent.com/devchallenges-io/curriculum/refs/heads/main/4-frontend-libaries/challenges/group_1/data/property-listing-data.json';
+  URL = 'https://raw.githubusercontent.com/devchallenges-io/curriculum/refs/heads/main/4-frontend-libaries/challenges/group_1/data/property-listing-data.json';
 
   constructor() { }
 
   async getAllProperties(): Promise<PropertyListing[]> {
     try {
-      const response = await fetch(this.url);
+      const response = await fetch(this.URL);
       if (!response.ok) {
         console.error('Network response was not ok:', response.statusText)
         return []
