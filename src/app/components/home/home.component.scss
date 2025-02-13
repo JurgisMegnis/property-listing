@@ -45,6 +45,8 @@
 }
 
 .properties {
+    padding: 48px 5.6vw 80px 5.6vw;
+
     .title {
         @include h2-bold;
         color: $light;
