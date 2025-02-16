@@ -1,0 +1,32 @@
+@import '../../../styles/styles.scss';
+
+input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0; 
+
+    &:checked {
+        & + label {
+            background-color: $grey-200;
+            color: white;
+        }
+    }
+}
+
+label {
+    @include body-bold;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+}
+
+:host:not(:last-child) {
+    margin-right: 12px;
+}
