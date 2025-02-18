@@ -59,6 +59,9 @@
         border: 1px solid $grey-200;
         background-color: $grey-300;
         color: $light; 
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
         .location {
             width: fit-content;

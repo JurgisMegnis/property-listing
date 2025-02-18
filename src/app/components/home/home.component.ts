@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
   /* checks the selected value of the superhost selector and add it to the filters array */
   filterSuperhost(value: boolean) {
     if (value) {
-      this.superhostFilter = null; // if superhost is true remove this filter
+      this.superhostFilter = null; // if superhost is true don't filter
     } else {
       this.superhostFilter = (superhost) => superhost.superhost === false; // if superhost is false only show non-superhost properties
     }
@@ -78,6 +78,7 @@ export class HomeComponent implements OnInit {
   
   /* filter the propertyList array */
   filter() {
+    console.log(this.filters)
     this.filteredPropertyList = this.propertyList.filter(property => 
       this.filters.every(filter => filter(property)))
   }
