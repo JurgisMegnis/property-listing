@@ -4,11 +4,12 @@ import { PropertyListingComponent } from '../property-listing/property-listing.c
 import { PropertyListing } from '../../property-listing';
 import { PropertiesService } from '../../services/properties.service';
 import { SegmentControlComponent } from "../segment-control/segment-control.component";
+import { SwitchComponent } from "../switch/switch.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [PropertyListingComponent, CommonModule, SegmentControlComponent],
+  imports: [PropertyListingComponent, CommonModule, SegmentControlComponent, SwitchComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -18,6 +19,11 @@ export class HomeComponent implements OnInit {
   propertyService: PropertiesService = inject(PropertiesService);
   filteredPropertyList: PropertyListing[] = [];
   locationList: string[] = [];
+  private filters: Array<(item: PropertyListing) => boolean> = [];
+  private locationFilter: ((property: any) => boolean) | null = null;
+  private superhostFilter: ((property: any) => boolean) | null = null;
+
+
 
   async ngOnInit(): Promise<void> {
     await this.loadPropertyItems();
@@ -41,25 +47,39 @@ export class HomeComponent implements OnInit {
     this.locationList.unshift(this.ALL_STAYS) // add an item in front of the array
   }
 
-  /* checks the selected value of the location selector and filters the object accordingly  */
+  /* FILTER LOGIC */
+  /* checks the selected value of the location selector and add it to the filters array */
   filterByLocation(value: string) {
-      switch (value) {
-        case this.ALL_STAYS:
-          this.filteredPropertyList = this.propertyList
-          break;
-        case "Finland":
-          this.filteredPropertyList = this.propertyList.filter(propertyItem => propertyItem.location === "Finland")
-          break;
-        case "Norway":
-          this.filteredPropertyList = this.propertyList.filter(propertyItem => propertyItem.location === "Norway")
-          break;
-        case "Sweden":
-          this.filteredPropertyList = this.propertyList.filter(propertyItem => propertyItem.location === "Sweden")
-          break;
-        case "Switzerland":
-          this.filteredPropertyList = this.propertyList.filter(propertyItem => propertyItem.location === "Switzerland")
-          break;
-      } 
+    if (value === this.ALL_STAYS) {
+      this.locationFilter = (locationItem) => true // if the selected value is 'All stays' display full array 
+    } else {
+      this.locationFilter = (locationItem) => locationItem.location === value;
+    }
+    this.updateFilters()
   }
 
+  /* checks the selected value of the superhost selector and add it to the filters array */
+  filterSuperhost(value: boolean) {
+    if (value) {
+      this.superhostFilter = null; // if superhost is true don't filter
+    } else {
+      this.superhostFilter = (superhost) => superhost.superhost === false; // if superhost is false only show non-superhost properties
+    }
+    this.updateFilters()
+  }
+
+  /* clear the filters array and update it with newly selected values  */
+  updateFilters() {
+    this.filters = [];
+    if (this.locationFilter) this.filters.push(this.locationFilter);
+    if (this.superhostFilter) this.filters.push(this.superhostFilter);
+    this.filter()
+  }
+  
+  /* filter the propertyList array */
+  filter() {
+    console.log(this.filters)
+    this.filteredPropertyList = this.propertyList.filter(property => 
+      this.filters.every(filter => filter(property)))
+  }
 }

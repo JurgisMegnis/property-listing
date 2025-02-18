@@ -8,9 +8,12 @@
 </section>
 <section class="filters">
     <div class="filter-container">
-    <div class="location">
-        <app-segment-control *ngFor="let locationItem of locationList; let first = first" [locationItem]="locationItem" [isFirst]="first" (selectionChange)="filterByLocation($event)"></app-segment-control>
-    </div>
+        <div class="location">
+            <app-segment-control *ngFor="let locationItem of locationList; let first = first" [locationItem]="locationItem" [isFirst]="first" (selectionChange)="filterByLocation($event)"></app-segment-control>
+        </div>
+        <div class="superhost">
+            <app-switch label="Superhost" (switchState)="filterSuperhost($event)"></app-switch>
+        </div>
     </div>
 </section>
 <section class="properties">

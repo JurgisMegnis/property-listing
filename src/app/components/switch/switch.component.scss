@@ -1,0 +1,51 @@
+@import '../../../styles/styles.scss';
+
+:host {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+input {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 48px;
+    height: 24px;
+    border-radius: 20px;
+    background-color: $grey-200;
+    transition: background .3s;
+    cursor: pointer;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 73%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        height: 1.25rem;
+        width: 1.25rem;
+        background-color: $light;
+        transition: left .3s;
+    }
+
+    &:checked {
+        background-color: $blue;
+
+        &::after {
+            left: 27%;
+        }
+    }
+
+    &:focus {
+        outline: 1.5px solid $blue;
+        outline-offset: 3px;
+    }
+
+}
+
+label {
+    @include label-regular;
+    line-height: 24px;
+}
