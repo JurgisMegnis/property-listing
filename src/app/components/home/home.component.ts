@@ -5,11 +5,12 @@ import { PropertyListing } from '../../property-listing';
 import { PropertiesService } from '../../services/properties.service';
 import { SegmentControlComponent } from "../segment-control/segment-control.component";
 import { SwitchComponent } from "../switch/switch.component";
+import { DropdownComponent } from "../dropdown/dropdown.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [PropertyListingComponent, CommonModule, SegmentControlComponent, SwitchComponent],
+  imports: [PropertyListingComponent, CommonModule, SegmentControlComponent, SwitchComponent, DropdownComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -19,15 +20,16 @@ export class HomeComponent implements OnInit {
   propertyService: PropertiesService = inject(PropertiesService);
   filteredPropertyList: PropertyListing[] = [];
   locationList: string[] = [];
+  bedroomTypes: string[] = [];
   private filters: Array<(item: PropertyListing) => boolean> = [];
   private locationFilter: ((property: any) => boolean) | null = null;
   private superhostFilter: ((property: any) => boolean) | null = null;
-
-
+  private typeFilter: ((property: any) => boolean) | null = null;
 
   async ngOnInit(): Promise<void> {
     await this.loadPropertyItems();
     this.getLocations();
+    this.getBedroomTypes();
   
   }
 
@@ -45,6 +47,24 @@ export class HomeComponent implements OnInit {
       .sort((a, b) => a.localeCompare(b)); // remove all of the duplicate values and sort the array alphabetically
     
     this.locationList.unshift(this.ALL_STAYS) // add an item in front of the array
+  }
+
+  getBedroomTypes(): void {
+    let fullBedroomArray = [...new Set(this.propertyList
+      .map(locationItem => locationItem.capacity.bedroom)
+      .filter(Boolean))]; // get the unique bedroom type numbers (unique as we are using Set) and remove any null/undefiend values
+
+    this.bedroomTypes = fullBedroomArray.map(
+      (bedroomCount: number): string => {
+        if (bedroomCount === 1) {
+          return bedroomCount + ' bedroom';
+        } else {
+          return bedroomCount + ' bedrooms';
+        }
+       }
+    ); // populate the bedroomTypes array with bedroom count numbers and add the word 'bedroom/s' to each string in the array
+
+    this.bedroomTypes.sort(); // sort the array so it starts with the smallest value
   }
 
   /* FILTER LOGIC */
@@ -68,11 +88,22 @@ export class HomeComponent implements OnInit {
     this.updateFilters()
   }
 
+  /* checks the selected value of the priperty type selector and add it to the filters array */
+  filterByType(value: string) {
+    if (value === 'all') {
+      this.typeFilter = null; // if all property types are selected don't filter
+    } else {
+      this.typeFilter = (type) => type.capacity.bedroom === Number(value[0]);
+    }
+    this.updateFilters();
+  }
+
   /* clear the filters array and update it with newly selected values  */
   updateFilters() {
     this.filters = [];
     if (this.locationFilter) this.filters.push(this.locationFilter);
     if (this.superhostFilter) this.filters.push(this.superhostFilter);
+    if (this.typeFilter) this.filters.push(this.typeFilter)
     this.filter()
   }
   

@@ -1,0 +1,5 @@
+<select name="property-type" id="property-type" (change)="onInputChange($event)">
+    <option value="" disabled selected>Property type</option>
+    <option value="all">All types</option>
+    <option *ngFor="let type of propertyType" [value]="type">{{type}}</option>
+</select>

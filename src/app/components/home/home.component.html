@@ -11,9 +11,14 @@
         <div class="location">
             <app-segment-control *ngFor="let locationItem of locationList; let first = first" [locationItem]="locationItem" [isFirst]="first" (selectionChange)="filterByLocation($event)"></app-segment-control>
         </div>
-        <div class="superhost">
-            <app-switch label="Superhost" (switchState)="filterSuperhost($event)"></app-switch>
-        </div>
+        <div class="right">
+            <div class="superhost">
+                <app-switch label="Superhost" (switchState)="filterSuperhost($event)"></app-switch>
+            </div>
+            <div class="property-type">
+                <app-dropdown [propertyType]="bedroomTypes" (selectionChange)="filterByType($event)"></app-dropdown>
+            </div>
+        </div>  
     </div>
 </section>
 <section class="properties">
