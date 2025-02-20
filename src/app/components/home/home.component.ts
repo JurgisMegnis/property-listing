@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
   private locationFilter: ((property: any) => boolean) | null = null;
   private superhostFilter: ((property: any) => boolean) | null = null;
   private typeFilter: ((property: any) => boolean) | null = null;
+  isLoading: boolean = true; // track loading state
+  hasFailed: boolean = false; // track request failure state
 
   async ngOnInit(): Promise<void> {
     await this.loadPropertyItems();
@@ -34,8 +36,21 @@ export class HomeComponent implements OnInit {
   }
 
   async loadPropertyItems(): Promise<void> {
-    this.propertyList = await this.propertyService.getAllProperties();
-    this.filteredPropertyList = this.propertyList;
+    try {
+      this.propertyList = await this.propertyService.getAllProperties();
+
+      if (!this.propertyList || this.propertyList.length === 0) {
+        this.hasFailed = true;
+      } else {
+        this.filteredPropertyList = this.propertyList;
+      }
+      
+      this.isLoading = false;
+    } catch (error) {
+      console.error('Error loading property items:', error)
+      this.hasFailed = true;
+      this.isLoading = false;
+    }
   }
 
   getLocations(): void {

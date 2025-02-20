@@ -22,16 +22,20 @@
             <div class="property-type">
                 <app-dropdown [propertyType]="bedroomTypes" (selectionChange)="filterByType($event)"></app-dropdown>
             </div>
-        </div>  
+        </div> 
     </div>
 </section>
 <section class="properties">
-    <h2 class="title">Over 200 stays</h2>
-        @if (propertyList && propertyList.length > 0) {
+    <h2 class="title">Available stays</h2>
+        @if (filteredPropertyList && filteredPropertyList.length > 0) {
             <div class="property-grid">
                 <app-property-listing *ngFor="let propertyItem of filteredPropertyList" [propertyListing]="propertyItem"></app-property-listing>
             </div>
+        } @else if (isLoading) {
+            <p class="loader">Loading..</p>
+        } @else if (hasFailed) {
+            <p class="error-message">Failed to load properties. Please try again later.</p>
         } @else {
-            <p>Loading..</p>
+            <p class="empty-state">No stays with the chosen parameters 🤷‍♂️</p>
         }
 </section>
