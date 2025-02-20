@@ -1,0 +1,21 @@
+@import '../../../styles/styles.scss';
+
+select {
+    @include body-bold;
+    color: $light;
+    background-color: rgba($color: #000000, $alpha: 0);
+    padding: 0.75rem 3.5rem 0.75rem 1.5rem;
+    border: 2px solid $grey-200;
+    border-radius: 12px;
+    cursor: pointer;
+
+    appearance: none;
+    background-image: url('../../../../public/Expand_down.svg');
+    background-repeat: no-repeat;
+    background-position: right 1rem top 50%;
+
+    &:focus {
+        outline: 1.5px solid $blue;
+        outline-offset: 3px;
+    }
+}
