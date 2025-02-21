@@ -89,6 +89,7 @@
     margin: 0 auto;
     max-width: calc(1136px + (2 * 5.6vw));
     width: 100%;
+    min-height: 500px;
 
     .title {
         @include h2-bold;
@@ -101,6 +102,21 @@
         grid-template-columns: 1fr 1fr 1fr;
         column-gap: 32px;
         row-gap: 72px;  
+    }
+
+    .loader {
+        @include body-bold;
+        color: $light;
+    }
+
+    .error-message {
+        @include body-bold;
+        color: $light;
+    }
+
+    .empty-state {
+        color: $grey-50;
+        @include h3;
     }
 }
 
